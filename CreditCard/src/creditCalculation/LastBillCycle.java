@@ -20,7 +20,7 @@ public class LastBillCycle {
 
 	public static void main(String[] args) 
 	{
-		
+		System.out.println("Hi");
 	}
 	
 	public static List<Double> GetDues(Date StatementDate) throws IOException, ParseException

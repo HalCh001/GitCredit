@@ -13,17 +13,7 @@ public class LogicRocks {
 		
 	}
 	
-	public static Double GetRecursiveInterest() throws IOException, ParseException
-		{
-		   //List<Double> dLastBillCycleDues= LastBillCycle.GetDues();
-		   
-		   
-		
-		
-			return null;
-			
-		}
-		
+
 				
 	}
 

@@ -10,8 +10,7 @@ import org.testng.annotations.Test;
 
 public class MonthlyStatement {
 
-	@Test
-	void GetStatement() throws IOException, ParseException
+	public static void main(String args[]) throws IOException, ParseException
 	{
 		Constants spConstants= ProjectVariables.GetStatementAndPaymentDate();
 		
