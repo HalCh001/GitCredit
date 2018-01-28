@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import projectData.Constants;
 import projectData.ProjectVariables;
 
 
@@ -25,7 +26,7 @@ public class LastBillCycle {
 	public static List<Double> GetDues(Date StatementDate) throws IOException, ParseException
 	{	
 		Date sStatementDate;
-
+		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
         sStatementDate=StatementDate;
         Date dtLastBillStatementDate=ProjectVariables.GetLastCycleDate(sStatementDate);
 		
@@ -33,7 +34,7 @@ public class LastBillCycle {
 		Double dLastBillCycleOutstanding=0.00,dLastBillCycleMAD=0.00;
 		List<Double> dLastBillCycleDues = new ArrayList<Double>();
 		
-		File F1= new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls");
+		File F1= new File(spConstants.sExcelLocation);
 		FileInputStream FLastCycleDues= new FileInputStream(F1);
 		HSSFWorkbook Ex2= new HSSFWorkbook(FLastCycleDues);
 		HSSFSheet Sh2= Ex2.getSheetAt(1);

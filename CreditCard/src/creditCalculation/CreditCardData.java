@@ -30,7 +30,7 @@ public class CreditCardData
 	public static Boolean CheckAndUpdateRowForLastMonthOutstanding(List<Double> Amount) throws IOException, ParseException
 	{
 		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
-		File F1= new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls");
+		File F1= new File(spConstants.sExcelLocation);
 		FileInputStream Fis= new FileInputStream(F1);
 		HSSFWorkbook Ex1= new HSSFWorkbook(Fis);
 		HSSFSheet Sh1= Ex1.getSheetAt(0);
@@ -65,7 +65,7 @@ public class CreditCardData
 
 		{
 			Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
-			File F1= new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls");
+			File F1= new File(spConstants.sExcelLocation);
 			FileInputStream Fis2= new FileInputStream(F1);
 			HSSFWorkbook Ex2= new HSSFWorkbook(Fis2);
 			HSSFSheet Sh2= Ex2.getSheetAt(1);
@@ -100,7 +100,7 @@ public class CreditCardData
 		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date sStatementDate = sdf.parse(spConstants.sSt);
-		File F1= new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls");
+		File F1= new File(spConstants.sExcelLocation);
 		FileInputStream Fis= new FileInputStream(F1);
 		HSSFWorkbook Ex1= new HSSFWorkbook(Fis);
 		HSSFSheet Sh1= Ex1.getSheetAt(0);
@@ -162,7 +162,7 @@ public class CreditCardData
 				 }
 			}			
 		}
-		FileOutputStream fos=new FileOutputStream(new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls"));
+		FileOutputStream fos=new FileOutputStream(new File(spConstants.sExcelLocation));
 		Ex1.write(fos);
 		fos.close();
     }
@@ -174,7 +174,7 @@ public class CreditCardData
 		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date sStatementDate = sdf.parse(spConstants.sSt);
-		File F1= new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls");
+		File F1= new File(spConstants.sExcelLocation);
 		FileInputStream Fis2= new FileInputStream(F1);
 		HSSFWorkbook Ex2= new HSSFWorkbook(Fis2);
 		HSSFSheet Sh2= Ex2.getSheetAt(1);
@@ -216,7 +216,7 @@ public class CreditCardData
 			}
 			
 			  
-			FileOutputStream fos=new FileOutputStream(new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls"));
+			FileOutputStream fos=new FileOutputStream(new File(spConstants.sExcelLocation));
 			Ex2.write(fos);
 			fos.close();	
 			 

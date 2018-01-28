@@ -73,8 +73,9 @@ public class Outstanding
 	
 	public static Date DateOfLastBillCycleOutstandingCleared() throws IOException
 	{
+		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
 		Date ClearDate= null; 
-		File F1= new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls");
+		File F1= new File(spConstants.sExcelLocation);
 		FileInputStream Fis= new FileInputStream(F1);
 		HSSFWorkbook Ex1= new HSSFWorkbook(Fis);
 		HSSFSheet Sh1= Ex1.getSheetAt(0);

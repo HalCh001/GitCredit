@@ -10,6 +10,9 @@ import java.util.Date;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import projectData.Constants;
+import projectData.ProjectVariables;
+
 public class TransactionAmount 
 {
 
@@ -21,7 +24,8 @@ public class TransactionAmount
 		String sPayType = null;
 		int iList=0;
 		
-		File F1= new File("E:\\Automation Tool\\Selenium\\SeleniumCoding\\CreditCard\\DataTables\\Credit card Statement.xls");
+		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
+		File F1= new File(spConstants.sExcelLocation);
 		FileInputStream Fis= new FileInputStream(F1);
 		HSSFWorkbook Ex1= new HSSFWorkbook(Fis);
 		HSSFSheet Sh1= Ex1.getSheetAt(0);

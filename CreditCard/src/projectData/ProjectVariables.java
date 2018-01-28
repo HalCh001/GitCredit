@@ -71,15 +71,17 @@ public static Constants GetStatementAndPaymentDate() throws IOException{
 		prop.setProperty("AnnualInterestRate", "0.36");
 		prop.setProperty("ServiceTaxRate", "0.14");
 		prop.setProperty("CardType","AMEX");
+		prop.setProperty("ExcelLocation","S:\\Selenium\\CreditCardSetUp\\DataTables\\Credit card Statement.xls");
 		prop.store(fos, "Updated");
 		String sPaymentDate= prop.getProperty("PaymentDueDate");
 		String sStatementDate= prop.getProperty("StatementDate");
 		String sCardType=prop.getProperty("CardType");
+		String sExcelLocation=prop.getProperty("ExcelLocation");
 		
 		
 		Double dAnnualInterestRate= Double.parseDouble(prop.getProperty("AnnualInterestRate"));
 		Double dServiceTaxRate= Double.parseDouble(prop.getProperty("ServiceTaxRate"));
-		Constants rConstants= new Constants(sStatementDate,sPaymentDate,dAnnualInterestRate,dServiceTaxRate, sCardType);
+		Constants rConstants= new Constants(sStatementDate,sPaymentDate,dAnnualInterestRate,dServiceTaxRate, sCardType,sExcelLocation);
 	
 		return rConstants;
 	}
