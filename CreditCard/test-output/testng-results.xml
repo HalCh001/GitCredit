@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="561" started-at="2018-01-28T13:34:11Z" finished-at="2018-01-28T13:34:12Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="561" started-at="2018-01-28T13:34:11Z" finished-at="2018-01-28T13:34:12Z">
+      <class name="creditCalculation.MonthlyStatement">
+        <test-method status="PASS" signature="GetStatement()[pri:0, instance:creditCalculation.MonthlyStatement@ad4bb0]" name="GetStatement" duration-ms="513" started-at="2018-01-28T19:04:11Z" finished-at="2018-01-28T19:04:12Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- GetStatement -->
+      </class> <!-- creditCalculation.MonthlyStatement -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
