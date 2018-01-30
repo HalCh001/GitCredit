@@ -21,7 +21,7 @@ public class Outstanding
 	
 	public static void main(String args[]) throws IOException
 	{
-		DateOfLastBillCycleOutstandingCleared();
+		
 	}
 			
 	public static Double GetTotalOutStanding() throws IOException, ParseException

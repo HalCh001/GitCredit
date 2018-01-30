@@ -22,11 +22,18 @@ public class MonthlyStatement {
 		System.out.println("@ Card Type: "+spConstants.sCardType);
 		System.out.println("");
 		System.out.println("**************************************************************");
-			       
-        List<Double> StatementDetails = CreditCardData.GetCompleteDetails();
-		CreditCardData.CheckAndUpdateRowForLastMonthOutstanding(StatementDetails);
-		CreditCardData.StoreCreditCardDataInExcel(StatementDetails);
-
+		
+		try
+		{
+	        List<Double> StatementDetails = CreditCardData.GetCompleteDetails();
+			CreditCardData.CheckAndUpdateRowForLastMonthOutstanding(StatementDetails);
+			CreditCardData.StoreCreditCardDataInExcel(StatementDetails);
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 
 	}
 

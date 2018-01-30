@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="FirstAnt" default="run">
+
+	<target name="clean">
+   		 <delete dir="./Staging"/>
+	</target>
+	
+	<target name="compile" depends="clean">	
+		<delete dir="./Staging"/>
+		<mkdir dir="Staging"/>
+		
+        <javac srcdir="src" destdir="Staging"  includeantruntime="false">        	
+	        <classpath>
+	          	 <fileset dir="C:\Users\GamezzOn\git\GitCredit\CreditCard\Library">
+	        		<include name="poi-2.5.1_patched.jar" />
+	        		<include name="poi-2.5.1.jar" />
+	        		<include name="poi-ooxml-3.9.jar" />
+	        		<include name="poi-ooxml-schemas-3.9.jar" />
+	        		<include name="selenium-server-standalone-2.53.1.jar" />
+	        	 </fileset>	     	 
+	   		</classpath>
+	   	</javac>	
+	</target>
+	
+	<target name="run" depends="compile">	
+        <java classname="creditCalculation.MonthlyStatement">
+        	 
+        	<classpath path="Staging" >
+        		<fileset dir="C:\Users\GamezzOn\git\GitCredit\CreditCard\Library">
+	        		<include name="poi-2.5.1_patched.jar" />
+	        		<include name="poi-2.5.1.jar" />
+	        		<include name="poi-ooxml-3.9.jar" />
+	        		<include name="poi-ooxml-schemas-3.9.jar" />
+	        		<include name="selenium-server-standalone-2.53.1.jar" />
+	        	 </fileset>
+        	</classpath>
+        </java>
+	</target>
+
+</project>
