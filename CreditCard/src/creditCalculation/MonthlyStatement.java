@@ -20,7 +20,6 @@ public class MonthlyStatement {
 		System.out.println("@ Monthly Interest Rate: "+spConstants.dIntrstRate);
 		System.out.println("@ Service Tax Rate: "+spConstants.dSrvcTaxRate);
 		System.out.println("@ Card Type: "+spConstants.sCardType);
-		System.out.println("");
 		System.out.println("**************************************************************");
 		
 		try
