@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="E:/Automation Tool/Selenium/Installation Files/poi-2.5.1_patched.jar/poi-2.5.1_patched.jar"/>
 	<classpathentry kind="lib" path="E:/Automation Tool/Selenium/Installation Files/zip version/poi-ooxml-3.9.jar/poi-ooxml-3.9.jar"/>
 	<classpathentry kind="lib" path="E:/Automation Tool/Selenium/Installation Files/New folder/selenium-server-standalone-2.53.1.jar"/>
+	<classpathentry kind="lib" path="E:/Automation Tool/Selenium/Installation Files/mailactivation/activation.jar"/>
+	<classpathentry kind="lib" path="E:/Automation Tool/Selenium/Installation Files/mailactivation/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
