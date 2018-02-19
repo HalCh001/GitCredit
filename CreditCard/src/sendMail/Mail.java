@@ -88,7 +88,7 @@ public class Mail
 		email.append("<html><body text-align: center>");
 		email.append("<div");
 		
-		email.append("<p><em> Dear Anuradha Saha," +"<br/>" +
+		email.append("<p><em> Dear Customer," +"<br/>" +
 					      "Please find your Credit Card Bill as below-" + "<em></p>");
 
 		email.append("<p><b> Payment Due Date: </b>" +ProjectVariables.DateConversion(ProjectVariables.GetNextCycleDate1(sPaymentDate)) +"<br/>"+
