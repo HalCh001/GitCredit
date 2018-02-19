@@ -17,6 +17,8 @@
 	        		<include name="poi-ooxml-3.9.jar" />
 	        		<include name="poi-ooxml-schemas-3.9.jar" />
 	        		<include name="selenium-server-standalone-2.53.1.jar" />
+	          	 	<include name="activation.jar" />
+	          	 	<include name="mail.jar" />
 	        	 </fileset>	     	 
 	   		</classpath>
 	   	</javac>	
@@ -32,6 +34,8 @@
 	        		<include name="poi-ooxml-3.9.jar" />
 	        		<include name="poi-ooxml-schemas-3.9.jar" />
 	        		<include name="selenium-server-standalone-2.53.1.jar" />
+        			<include name="activation.jar" />
+        			<include name="mail.jar" />
 	        	 </fileset>
         	</classpath>
         </java>
