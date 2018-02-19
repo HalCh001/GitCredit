@@ -197,7 +197,7 @@ public class Mail
         //mp.addBodyPart(Regards);
         
 
-        SendEmailJar.send("AutoCreditMail@gmail.com","Test@12345#","chiranjit.halder@gmail.com","Citi Bank Credit Bill- Customised",mp);
+        SendEmailJar.send("AutoCreditMail@gmail.com","Test@12345#","chiranjit.halder@gmail.com","Citi Bank Credit Bill- Jenkins Triggered",mp);
         deleteRow();
     }
 
