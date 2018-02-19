@@ -5,7 +5,7 @@ import javax.mail.*;
 import javax.mail.internet.*;    
 class SendEmailJar
 {  
-    public static void send(final String from,final String password,String to,String sub,String msg)
+    public static void send(final String from,final String password,String to,String sub,Multipart msg)
     {   
           Properties props = new Properties();    
           props.put("mail.smtp.host", "smtp.gmail.com");    
@@ -26,11 +26,13 @@ class SendEmailJar
                     
           try 
           {    
-           MimeMessage message = new MimeMessage(session);    
-           message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
-           message.setSubject(sub);    
-           message.setContent(msg, "text/html; charset=utf-8");
-           
+        	          	  
+    	  MimeMessage message = new MimeMessage(session);    
+    	  message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
+    	  message.setSubject(sub);
+    	  
+    	  
+    	  message.setContent(msg);
            
            Transport.send(message);    
            System.out.println("message sent successfully");    

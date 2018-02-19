@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,9 +19,12 @@ import projectData.ProjectVariables;
 
 public class LastBillCycle {
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws IOException, ParseException 
 	{
-		System.out.println("Hi");
+		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date sStatementDate = sdf.parse(spConstants.sSt);
+		GetDues(sStatementDate);
 	}
 	
 	public static List<Double> GetDues(Date StatementDate) throws IOException, ParseException
@@ -29,7 +33,7 @@ public class LastBillCycle {
 		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
         sStatementDate=StatementDate;
         Date dtLastBillStatementDate=ProjectVariables.GetLastCycleDate(sStatementDate);
-		
+		//System.err.println("# Expecting Last Bill cycle dues Data as on: "+dtLastBillStatementDate);
 		
 		Double dLastBillCycleOutstanding=0.00,dLastBillCycleMAD=0.00;
 		List<Double> dLastBillCycleDues = new ArrayList<Double>();

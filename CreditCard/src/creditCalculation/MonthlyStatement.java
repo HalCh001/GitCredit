@@ -17,7 +17,7 @@ public class MonthlyStatement {
 		System.out.println("****************************Project Constants*****************");
 		System.out.println("@ Payment Due Date: "+spConstants.sPmnt);
 		System.out.println("@ Bill Statement Date: "+spConstants.sSt);
-		System.out.println("@ Monthly Interest Rate: "+spConstants.dIntrstRate);
+		System.out.println("@ Yearly Interest Rate: "+spConstants.dIntrstRate);
 		System.out.println("@ Service Tax Rate: "+spConstants.dSrvcTaxRate);
 		System.out.println("@ Card Type: "+spConstants.sCardType);
 		System.out.println("**************************************************************");

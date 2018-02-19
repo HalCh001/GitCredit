@@ -14,10 +14,10 @@ public class MinimumAmountDue {
 
 	public static void main(String[] args) throws IOException, ParseException 
 	{
-		GetMinimumAmountDue(25260.00,false);
+		
 	}
 	
-	public static Double GetMinimumAmountDue(Double Amount,Boolean LastCycleMADPaid) throws IOException, ParseException
+	public static Double GetMinimumAmountDue(Double Amount,Double TotalInterest,Boolean LastCycleMADPaid) throws IOException, ParseException
 		{
 			Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
 			
@@ -27,14 +27,17 @@ public class MinimumAmountDue {
 			Double sTotalOutstanding=Amount;
 			List<Double> dLastBillCycleDues= LastBillCycle.GetDues(sStatementDate);
 			Double LastCycleMAD=dLastBillCycleDues.get(1);
+			Double TotalAmountPaidThisBillCycle=Outstanding.GetTotalAmountPaidByCustomer();
 			
 			Double MAD1=0.00,MAD2=0.00,dTotalEMI=0.00, MAD0=100.00,MAD=0.00;
 			ArrayList<CreditData> CD= new ArrayList<CreditData>();	
 			CD= creditCalculation.TransactionAmount.GetTransactionAmount();
+			
+			
 
 	        for(int iTrans=0; iTrans<CD.size();iTrans++)
 	        {
-	        	if(CD.get(iTrans).PaymentDt.before(sStatementDate) && !CD.get(iTrans).PaymentDt.before(sLastBillCycleDate))
+	        	if(!CD.get(iTrans).PaymentDt.after(sStatementDate) && CD.get(iTrans).PaymentDt.after(sLastBillCycleDate))
 	        	{
 		        	if(CD.get(iTrans).EMI >0.00)
 		        	{
@@ -50,8 +53,8 @@ public class MinimumAmountDue {
 	        	{
 	        		LastCycleMAD=0.00;
 	        	}
-		        MAD1= LastCycleMAD+ 0.05*(sTotalOutstanding-LastCycleMAD);
-		        MAD2= LastCycleMAD+ dTotalEMI + (0.01*(sTotalOutstanding-LastCycleMAD));
+		        MAD1= LastCycleMAD+ 0.05*(sTotalOutstanding-LastCycleMAD);  // 5% of remaining Outstanding
+		        MAD2= LastCycleMAD+ dTotalEMI +TotalInterest+ (0.01*(dLastBillCycleDues.get(0)-TotalAmountPaidThisBillCycle-LastCycleMAD)); // 1% of remaining Outstanding
 		        MAD=Math.max(Math.max(MAD1,MAD2),MAD0);
 	        } 
 	        
