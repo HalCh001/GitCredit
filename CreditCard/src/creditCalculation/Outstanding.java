@@ -39,7 +39,7 @@ public class Outstanding
     
 		for(int iTrans=0; iTrans<CD.size();iTrans++)
 		{   			
-			if(CD.get(iTrans).PaymentDt.before(sStatementDate) && !CD.get(iTrans).PaymentDt.before(dtLastBillStatementDate) )
+			if(!CD.get(iTrans).PaymentDt.after(sStatementDate) && CD.get(iTrans).PaymentDt.after(dtLastBillStatementDate) )
 				{
 					if(CD.get(iTrans).EMI==null)
 					{
@@ -48,13 +48,19 @@ public class Outstanding
 					
 					if(!(CD.get(iTrans).EMI>0.00))
 						{
-							if(CD.get(iTrans).sPayType.contains("BankCreditToCustomer") ||CD.get(iTrans).sPayType.contains("LastBillCycleOustanding"))
+							if(CD.get(iTrans).sPayType.contains("BankCreditToCustomer"))
+								{
+									dTotalOutstanding=dTotalOutstanding+CD.get(iTrans).TrnsAmount;
+								}
+							
+							else if (CD.get(iTrans).sPayType.contains("LastBillCycleOustanding") & spConstants.sCardType!="AMEX")
 								{
 								dTotalOutstanding=dTotalOutstanding+CD.get(iTrans).TrnsAmount;
 								}
+							
 							else if (CD.get(iTrans).sPayType.contains("CustomerPaymentToBank"))
 								{
-								dTotalOutstanding=dTotalOutstanding-CD.get(iTrans).TrnsAmount;
+									dTotalOutstanding=dTotalOutstanding-CD.get(iTrans).TrnsAmount;
 								}
 						}
 					else
@@ -64,8 +70,6 @@ public class Outstanding
 				}
 	}
 		
-			//dLastBillCycleDues= LastBillCycle.GetDues();
-			//dTotalOutstanding=dTotalOutstanding+ dLastBillCycleDues.get(0);
 			System.out.println(" ");
 
 	return dTotalOutstanding;
@@ -120,7 +124,7 @@ public class Outstanding
 		
 	}
 	
-	public static Boolean LastBillOutstandingCleared() throws IOException, ParseException
+	public static Double GetTotalAmountPaidByCustomer() throws IOException, ParseException
 	{
 		Double dAmountPaidByCustomer=0.00;
 		ArrayList<CreditData> CD= new ArrayList<CreditData>();	
@@ -136,7 +140,7 @@ public class Outstanding
 
 		for(int iTrans=0; iTrans<CD.size();iTrans++)
 		{     
-			if(!CD.get(iTrans).PaymentDt.after(sPaymentDate) && !CD.get(iTrans).PaymentDt.before(dtLastBillStatementDate))  //slight Doubt
+			if(!CD.get(iTrans).PaymentDt.after(sStatementDate) && CD.get(iTrans).PaymentDt.after(dtLastBillStatementDate))  //slight Doubt
 				{
 					if (CD.get(iTrans).sPayType.contains("CustomerPaymentToBank"))
 						{
@@ -146,14 +150,18 @@ public class Outstanding
 		}
 		System.out.println("%%% Amount Paid By customer from: "+dtLastBillStatementDate+ " To: "+sPaymentDate+ " is: Rs. "+dAmountPaidByCustomer);
        
-       if (dAmountPaidByCustomer>=LastCycleDue.get(0))
+		
+		return dAmountPaidByCustomer;
+		
+		
+     /*  if (dAmountPaidByCustomer>=LastCycleDue.get(0))
        {
     	   return true;
        }
        else
        {    	   
     	   return false;
-       }       		
+       }   */    		
 	}
 		
 	//public static int getExactDate()

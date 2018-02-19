@@ -40,13 +40,17 @@ public class CreditCardData
 		
 		try
 		 {
-			if(Sh1.getRow(Row-1).getCell(iRemarks).getStringCellValue().contains("Outstanding Details updated for Last Bill Cycle Dated:" +spConstants.sSt))		
-			  System.out.println("*** Outstanding Details alerady updated for Bill Cycle Dated:" +spConstants.sSt);
+			if(Sh1.getRow(Row-1).getCell(iRemarks).getStringCellValue().contains("Outstanding Details updated for Last Bill Cycle Dated:" +spConstants.sSt))
+			{
+				System.out.println("***Outstanding Details alerady updated for Bill Cycle Dated:" +spConstants.sSt);
+			}
 			else
+			{
 			  UpdateFirstSheet(Amount);
+			}
 		 }
 		catch(Exception e)
-		 {				
+		 {	
 			UpdateFirstSheet(Amount);
 		 }	
 		return true;
@@ -74,7 +78,7 @@ public class CreditCardData
 			
 			try
 			{
-				if(Sh2.getRow(Row-1).getCell(iRemarks).getStringCellValue().contains("Outstanding Details updated for Last Bill Cycle Dated:" +spConstants.sSt))
+				if(Sh2.getRow(Row-1).getCell(iRemarks).getStringCellValue().contains("Outstanding Details updated as on Date:" +spConstants.sSt))
 				{	
 					System.out.println("***Outstanding Details alerady updated for Bill Cycle Dated:" +spConstants.sSt);
 					return true;
@@ -100,6 +104,7 @@ public class CreditCardData
 		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date sStatementDate = sdf.parse(spConstants.sSt);
+        Calendar calendar = Calendar.getInstance();
 		File F1= new File(spConstants.sExcelLocation);
 		FileInputStream Fis= new FileInputStream(F1);
 		HSSFWorkbook Ex1= new HSSFWorkbook(Fis);
@@ -143,14 +148,15 @@ public class CreditCardData
 					Sh1.createRow(Row).createCell(iCol).setCellValue(0.00);
 				}					
 				 else if (Header[iCol].contains("Remarks"))
-					{				
-					 	Sh1.createRow(Row).createCell(iCol).setCellValue("Outstanding Details updated for Bill Cycle Dated:" +spConstants.sSt);
-						System.out.println(" Outstanding Details updated for Bill Cycle Dated:" +spConstants.sPmnt);
+					{	calendar.setTime(sStatementDate);
+						//calendar.add(Calendar.DATE, 1);
+						Date dLastMonthOutstandingDate=calendar.getTime();			
+					 	Sh1.createRow(Row).createCell(iCol).setCellValue("Outstanding Details updated for Last Bill Cycle Dated:" +spConstants.sSt);
 						System.out.println("");
 					}
 				 else if (Header[iCol].contains("LastCycleOutstandingCleared"))
 				 {
-					 if(Outstanding.LastBillOutstandingCleared())
+					 if(Outstanding.GetTotalAmountPaidByCustomer()>=LastBillCycle.GetDues(sStatementDate).get(0))
 					 {
 						 Sh1.createRow(Row).createCell(iCol).setCellValue("Yes");
 					 }
@@ -174,6 +180,7 @@ public class CreditCardData
 		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date sStatementDate = sdf.parse(spConstants.sSt);
+        Calendar calendar = Calendar.getInstance();
 		File F1= new File(spConstants.sExcelLocation);
 		FileInputStream Fis2= new FileInputStream(F1);
 		HSSFWorkbook Ex2= new HSSFWorkbook(Fis2);
@@ -204,14 +211,16 @@ public class CreditCardData
 			else if (Header[iCol].contains("Current MAD Amount"))
 			{
 				Sh2.createRow(Row).createCell(iCol).setCellValue(MAD);
-				System.out.println("$$$ Minimum Amount Due Rs. " +MAD+ " for Bill Statement Dated: " +spConstants.sSt+ " Cascaded in Next Bill Cycle as OutStanding Amount NOT Paid as of "+spConstants.sPmnt);
+				System.out.println("$$$ Minimum Amount Due Rs. " +MAD+ " for Bill Statement Dated: " +spConstants.sSt+ " Cascaded in Next Bill Cycle as OutStanding Amount NOT Paid as of "+spConstants.sSt);
 				
 			}
 			
 			else if (Header[iCol].contains("Remarks"))
-			{				
-				Sh2.createRow(Row).createCell(iCol).setCellValue("Outstanding Details updated Last Bill Cycle Dated:" +spConstants.sSt);
-				System.out.println("$$$ Outstanding Details updated for Bill Cycle Dated:" +spConstants.sPmnt);
+			{	
+				calendar.setTime(sStatementDate);
+				//calendar.add(Calendar.DATE, 1);
+				 Date dLastMonthOutstandingDate=calendar.getTime();
+				Sh2.createRow(Row).createCell(iCol).setCellValue("Outstanding Details updated as on Date:" +spConstants.sSt);
 				System.out.println("");
 			}
 			
@@ -240,9 +249,9 @@ public class CreditCardData
 		Double LateFee=LatePaymentFee.GetLateFee(PrincipleOutstanding);
 		PrincipleOutstanding=PrincipleOutstanding+dTotalInterestAndServiceTax+LateFee;
 		if (LateFee>0)
-			MAD= MinimumAmountDue.GetMinimumAmountDue(PrincipleOutstanding,false);
+			MAD= MinimumAmountDue.GetMinimumAmountDue(PrincipleOutstanding,dTotalInterestAndServiceTax,false);
 		else
-			MAD= MinimumAmountDue.GetMinimumAmountDue(PrincipleOutstanding,true);
+			MAD= MinimumAmountDue.GetMinimumAmountDue(PrincipleOutstanding,dTotalInterestAndServiceTax,true);
 		
 		
 		System.err.println("*** Total InterestAndServiceTax: "+dTotalInterestAndServiceTax);
@@ -255,7 +264,7 @@ public class CreditCardData
 		
 		CreditCardDetails.add(0, PrincipleOutstanding);
 		CreditCardDetails.add(1, MAD);
-		CreditCardDetails.add(2, InterestAndServiceTax);
+		CreditCardDetails.add(2, dTotalInterestAndServiceTax);
 		CreditCardDetails.add(3, LateFee);
 		
 		

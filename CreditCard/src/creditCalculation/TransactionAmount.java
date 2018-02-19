@@ -26,7 +26,10 @@ public class TransactionAmount
 		
 		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
 		File F1= new File(spConstants.sExcelLocation);
+		
 		FileInputStream Fis= new FileInputStream(F1);
+		//FileInputStream Fis= new FileInputStream("S:\\Selenium\\CreditCardSetUp\\DataTables\\Credit card Statement.xls");
+		
 		HSSFWorkbook Ex1= new HSSFWorkbook(Fis);
 		HSSFSheet Sh1= Ex1.getSheetAt(0);
 		int rowCnt= Sh1.getPhysicalNumberOfRows();
@@ -35,9 +38,6 @@ public class TransactionAmount
 
 		for(int iRow=1; iRow<rowCnt; iRow++)
 		{
-			
-			//HSSFRow Row= Sh1.getRow(iRow);
-			
 			for(short iCol=0; iCol<cellCount; iCol++)
 				
 			{	
