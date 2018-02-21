@@ -87,21 +87,24 @@ public class Interest
 	public static Double CalculateInterestAndServiceTax(Double Amount) throws IOException, ParseException
 	{
 		
+		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date sStatementDate = sdf.parse(spConstants.sSt);
+		Date dtNextDate;
+		Calendar calendar = Calendar.getInstance();
 		Double sTotalOutstanding=Amount;
 		Boolean bConsidered=true;
-		int IntterestFreePeriodConsidered=0;
-		Double dInterestAndServiceTax=0.00, dTransAmount=0.00,dInterest=0.00,dServiceTax=0.00;
+		//int IntterestFreePeriodConsidered=0;
+		
+		Double dLastBillCycleDue=LastBillCycle.GetDues(sStatementDate).get(0);
+		Double dTotalOutstanding=dLastBillCycleDue;
+		Double dInterestAndServiceTax=0.00, dTransAmount=dLastBillCycleDue,dInterest=0.00,dServiceTax=0.00;
 		ArrayList<CreditData> CD= new ArrayList<CreditData>();
 		ArrayList<CreditData> CCD= new ArrayList<CreditData>();
 		CD= creditCalculation.TransactionAmount.GetTransactionAmount();
 		Collections.reverse(CD);
 		
 		 
-		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date sStatementDate = sdf.parse(spConstants.sSt);
-        Date dtNextDate;
-        Calendar calendar = Calendar.getInstance();
         
         DecimalFormat df = new DecimalFormat("#.##");
         
@@ -136,22 +139,8 @@ public class Interest
 				{  
 				  
 				   if(!CD.get(iTrans).PaymentDt.after(sStatementDate) && CD.get(iTrans).PaymentDt.after(dtLastBillStatementDate))
-					{
-					   
-					   
-					   if (bConsidered && CD.get(iTrans).sPayType.contains("CustomerPaymentToBank") && IntterestFreePeriodConsidered==0)
-					    {						   
-						   //List<Double> remainingOutstanding = LastBillCycle.GetDues(sStatementDate);
-						   //CD.get(iTrans).TrnsAmount = CD.get(iTrans).TrnsAmount -remainingOutstanding.get(0);
-						   CCD.add(CD.get(iTrans));
-						   
-						   IntterestFreePeriodConsidered++;
-					    }
-					   
-					   else
-					   {					   
-						   CCD.add(CD.get(iTrans));
-					   }					  
+					{					   
+						   CCD.add(CD.get(iTrans));					  
 					}
 				   				   
 				}
@@ -194,12 +183,6 @@ public class Interest
 						  dTransAmount= dTransAmount + CCD.get(iTrans).EMI;
 						  System.out.println("EMI added for "+CCD.get(iTrans).TrnsAmount );
 					  }
-				  }
-				  
-				  else if (CCD.get(iTrans).sPayType.contains("LastBillCycleOustanding") && spConstants.sCardType!="AMEX")
-				  {
-					  dTransAmount= dTransAmount+ CCD.get(iTrans).TrnsAmount;
-					  IntterestFreePeriodConsidered++;
 				  }
 				  
 				  else if (CCD.get(iTrans).sPayType.contains("CustomerPaymentToBank"))

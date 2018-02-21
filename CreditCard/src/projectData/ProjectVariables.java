@@ -96,8 +96,8 @@ public static Constants GetStatementAndPaymentDate() throws IOException{
 		FileOutputStream fos = new FileOutputStream(sConstantFileLOcation);
 		prop.setProperty("ExcelLocation","S:\\Selenium\\CreditCardSetUp\\DataTables\\Credit card Statement.xls");
 				
-		prop.setProperty("PaymentDueDate","2018-02-01");		//Anu Details
-		prop.setProperty("StatementDate","2018-02-12");
+		prop.setProperty("PaymentDueDate","2018-03-01");		//Anu Details
+		prop.setProperty("StatementDate","2018-03-13");
 		prop.setProperty("AnnualInterestRate", "0.408");
 		prop.setProperty("ServiceTaxRate", "0.18");
 		prop.setProperty("CardType","CiTi");

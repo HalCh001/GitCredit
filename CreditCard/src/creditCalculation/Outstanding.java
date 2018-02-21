@@ -26,7 +26,7 @@ public class Outstanding
 			
 	public static Double GetTotalOutStanding() throws IOException, ParseException
 	{
-		Double dTotalOutstanding=0.00;
+		
 		Constants spConstants = ProjectVariables.GetStatementAndPaymentDate();
 		ArrayList<CreditData> CD= new ArrayList<CreditData>();	
 		CD= TransactionAmount.GetTransactionAmount();
@@ -35,7 +35,8 @@ public class Outstanding
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date sStatementDate = sdf.parse(spConstants.sSt);
         Date dtLastBillStatementDate=ProjectVariables.GetLastCycleDate(sStatementDate);
-
+        Double dLastBillCycleDue=LastBillCycle.GetDues(sStatementDate).get(0);
+		Double dTotalOutstanding=dLastBillCycleDue;
     
 		for(int iTrans=0; iTrans<CD.size();iTrans++)
 		{   			
@@ -53,10 +54,10 @@ public class Outstanding
 									dTotalOutstanding=dTotalOutstanding+CD.get(iTrans).TrnsAmount;
 								}
 							
-							else if (CD.get(iTrans).sPayType.contains("LastBillCycleOustanding") & spConstants.sCardType!="AMEX")
+							/*else if (CD.get(iTrans).sPayType.contains("LastBillCycleOustanding") & spConstants.sCardType!="AMEX")
 								{
 								dTotalOutstanding=dTotalOutstanding+CD.get(iTrans).TrnsAmount;
-								}
+								}*/
 							
 							else if (CD.get(iTrans).sPayType.contains("CustomerPaymentToBank"))
 								{
