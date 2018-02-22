@@ -1,11 +1,1 @@
-# GitCredit
-Credit Card Calculation
-hiii
-hello
-mm
-qwe
-hgh
-jhgfj
-Let's start
-hiiiiiiii
-hjgh
+Github->Jenkins->Github code->Hook request to Jenkins-> New build schedule-> ANT script execute.
